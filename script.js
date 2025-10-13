@@ -1,118 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Professional Profile</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
-        
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 4px solid #f0f0f0;
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 2em;
-        }
-        
-        .title {
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        
-        .bio {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        
-        .linkedin-btn {
-            background: #0077b5;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1em;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-        }
-        
-        .linkedin-btn:hover {
-            background: #005885;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,119,181,0.3);
-        }
-        
-        .contact {
-            color: #777;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Optional: Add your photo -->
-        <!-- <img src="profile.jpg" alt="Your Name" class="profile-img"> -->
-        
-        <h1>Your Full Name</h1>
-        <div class="title">Your Professional Title</div>
-        
-        <p class="bio">
-            Brief professional introduction highlighting your expertise, 
-            skills, or what you're passionate about. Keep it concise and engaging.
-        </p>
-        
-        <a href="https://www.linkedin.com/in/your-profile-id" class="linkedin-btn">
-            📋 View My LinkedIn Profile
-        </a>
-        
-        <div class="contact">
-            Contact: your.email@example.com
-        </div>
-    </div>
+// script.js - Enhanced functionality for personal landing page
 
-    <!-- Optional: Auto-redirect after delay -->
-    <script>
-        // Optional: Redirect to LinkedIn after 3 seconds
-        // setTimeout(() => {
-        //     window.location.href = 'https://www.linkedin.com/in/your-profile-id';
-        // }, 3000);
-    </script>
-</body>
-</html>
+// Smooth scrolling for anchor links
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize animations
+    initAnimations();
+    
+    // Add smooth scrolling
+    initSmoothScroll();
+    
+    // Add analytics tracking (optional)
+    initAnalytics();
+});
+
+// Animation effects
+function initAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for fade-in animation
+    document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+}
+
+// Smooth scrolling for navigation
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// Simple analytics - track link clicks
+function initAnalytics() {
+    document.querySelectorAll('a[data-track]').forEach(link => {
+        link.addEventListener('click', function() {
+            const linkName = this.getAttribute('data-track');
+            console.log(`Link clicked: ${linkName}`);
+            // You can add Google Analytics or other tracking here
+            // gtag('event', 'click', { 'event_category': 'Link', 'event_label': linkName });
+        });
+    });
+}
+
+// Visitor counter (optional)
+async function initVisitorCounter() {
+    try {
+        // This is a simple counter using a free service
+        const response = await fetch('https://api.countapi.xyz/hit/your-domain/visits');
+        const data = await response.json();
+        document.getElementById('visitor-count').textContent = data.value;
+    } catch (error) {
+        console.log('Visitor counter not available');
+    }
+}
+
+// Theme switcher (optional)
+function initThemeSwitcher() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+}
+
+// Email copy functionality
+function initEmailCopy() {
+    const emailElement = document.querySelector('.email-copy');
+    if (emailElement) {
+        emailElement.addEventListener('click', function() {
+            const email = this.textContent;
+            navigator.clipboard.writeText(email).then(() => {
+                const originalText = this.textContent;
+                this.textContent = 'Email copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+    }
+}
+
+// Initialize all features when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initAnimations();
+    initSmoothScroll();
+    initAnalytics();
+    initThemeSwitcher();
+    initEmailCopy();
+    
+    // Uncomment if you want visitor counter
+    // initVisitorCounter();
+});
+
+// Export functions for module use (if needed)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        initAnimations,
+        initSmoothScroll,
+        initAnalytics
+    };
+}
