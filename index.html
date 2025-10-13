@@ -3,52 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Professional Portfolio</title>
-    <!-- Link to Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Your Name - Professional Profile</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #f0f0f0;
         }
-        .section {
-            padding: 80px 0;
+        
+        h1 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 2em;
+        }
+        
+        .title {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .bio {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .linkedin-btn {
+            background: #0077b5;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .linkedin-btn:hover {
+            background: #005885;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,119,181,0.3);
+        }
+        
+        .contact {
+            color: #777;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Your Name</a>
-            <!-- ... nav items ... -->
+    <div class="container">
+        <!-- Optional: Add your photo -->
+        <!-- <img src="profile.jpg" alt="Your Name" class="profile-img"> -->
+        
+        <h1>Your Full Name</h1>
+        <div class="title">Your Professional Title</div>
+        
+        <p class="bio">
+            Brief professional introduction highlighting your expertise, 
+            skills, or what you're passionate about. Keep it concise and engaging.
+        </p>
+        
+        <a href="https://www.linkedin.com/in/your-profile-id" class="linkedin-btn">
+            📋 View My LinkedIn Profile
+        </a>
+        
+        <div class="contact">
+            Contact: your.email@example.com
         </div>
-    </nav>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="section bg-light text-center">
-        <div class="container">
-            <!-- Placeholder for LinkedIn Profile Picture -->
-            <img id="profile-picture" src="placeholder.jpg" alt="Your Name" class="profile-img mb-3">
-            <h1 id="profile-name">Your Name</h1>
-            <p id="profile-headline" class="lead">Your Professional Headline will appear here.</p>
-            <button onclick="signInWithLinkedIn()" class="btn btn-primary">Import from LinkedIn</button>
-        </div>
-    </section>
-
-    <!-- About / Experience Section -->
-    <section class="section">
-        <div class="container">
-            <h2>About Me</h2>
-            <p id="profile-summary">Your summary will appear here after connecting with LinkedIn.</p>
-        </div>
-    </section>
-
-    <!-- Link to Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Our Custom JS for LinkedIn -->
-    <script src="script.js"></script>
+    <!-- Optional: Auto-redirect after delay -->
+    <script>
+        // Optional: Redirect to LinkedIn after 3 seconds
+        // setTimeout(() => {
+        //     window.location.href = 'https://www.linkedin.com/in/your-profile-id';
+        // }, 3000);
+    </script>
 </body>
 </html>
