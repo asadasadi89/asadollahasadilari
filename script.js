@@ -1,60 +1,118 @@
-// Initialize the LinkedIn SDK
-function initLinkedIn() {
-    // This function loads the SDK asynchronously
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://platform.linkedin.com/in.js';
-    script.text = `api_key: 789fpgwdxweuiv\n authorize: true\n scope: r_liteprofile r_emailaddress`;
-    document.head.appendChild(script);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Professional Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #f0f0f0;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 2em;
+        }
+        
+        .title {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .bio {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .linkedin-btn {
+            background: #0077b5;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .linkedin-btn:hover {
+            background: #005885;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,119,181,0.3);
+        }
+        
+        .contact {
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Optional: Add your photo -->
+        <!-- <img src="profile.jpg" alt="Your Name" class="profile-img"> -->
+        
+        <h1>Your Full Name</h1>
+        <div class="title">Your Professional Title</div>
+        
+        <p class="bio">
+            Brief professional introduction highlighting your expertise, 
+            skills, or what you're passionate about. Keep it concise and engaging.
+        </p>
+        
+        <a href="https://www.linkedin.com/in/your-profile-id" class="linkedin-btn">
+            📋 View My LinkedIn Profile
+        </a>
+        
+        <div class="contact">
+            Contact: your.email@example.com
+        </div>
+    </div>
 
-// Function to handle the sign-in button click
-function signInWithLinkedIn() {
-    // The SDK's `IN.User.authorize()` function triggers the OAuth flow
-    IN.User.authorize(function() {
-        fetchProfileData();
-    });
-}
-
-// Function to fetch the user's profile data after they are authorized
-function fetchProfileData() {
-    // Use the SDK's `IN.API.Raw` to call the Profile endpoint
-    IN.API.Raw("/people/~:(id,firstName,lastName,profilePicture(displayImage~:playableStreams),vanityName,headline,location,summary)?format=json")
-        .result(function(data) {
-            // We have the data! Now update the webpage.
-            updateProfileUI(data);
-        })
-        .error(function(error) {
-            console.error("Error fetching profile data:", error);
-            alert("There was an error fetching your LinkedIn data.");
-        });
-}
-
-// Function to update the HTML with the fetched data
-function updateProfileUI(data) {
-    // Update Name
-    const nameElement = document.getElementById('profile-name');
-    nameElement.textContent = `${data.firstName.localized.en_US} ${data.lastName.localized.en_US}`;
-
-    // Update Headline
-    const headlineElement = document.getElementById('profile-headline');
-    headlineElement.textContent = data.headline.localized.en_US;
-
-    // Update Summary
-    const summaryElement = document.getElementById('profile-summary');
-    summaryElement.textContent = data.summary?.localized?.en_US || "No summary provided.";
-
-    // Update Profile Picture (this part is a bit more complex)
-    const pictureElement = document.getElementById('profile-picture');
-    if (data.profilePicture && data.profilePicture['displayImage~'].elements.length > 0) {
-        // Get the highest resolution image available
-        const pictureUrl = data.profilePicture['displayImage~'].elements.pop().identifiers[0].identifier;
-        pictureElement.src = pictureUrl;
-    }
-
-    // Hide the sign-in button after successful login
-    document.querySelector('.btn').style.display = 'none';
-}
-
-// Initialize the LinkedIn SDK when the page loads
-window.onload = initLinkedIn;
+    <!-- Optional: Auto-redirect after delay -->
+    <script>
+        // Optional: Redirect to LinkedIn after 3 seconds
+        // setTimeout(() => {
+        //     window.location.href = 'https://www.linkedin.com/in/your-profile-id';
+        // }, 3000);
+    </script>
+</body>
+</html>
